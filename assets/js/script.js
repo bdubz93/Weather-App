@@ -104,7 +104,7 @@ function showWeatherData(data) {
             currentTempEl.innerHTML = `            
             <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@4x.png" alt="weather icon" class="w-icon">
             <div class="other">
-                <div class="day">${window.moment(day.dt*1000).format('ddd')}</div>
+                <div class="date">${window.moment(day.dt*1000).format('ddd')}</div>
                 <div class="temp">Day:  ${day.temp.day} &#176; C</div>
                 <div class="temp">Night:  ${day.temp.night} &#176; C</div>
             </div>`
