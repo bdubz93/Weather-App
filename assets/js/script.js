@@ -60,7 +60,12 @@ function showWeatherData(data) {
   timezone.innerHTML = varName;
   countryEl.innerHTML = data.lat + "N " + data.lon + "E"
   let uvi = data.daily[0].uvi;
-
+  if (data.daily[0].uvi >= 11) {varUVI = `Violet`, varCOL = `White`}; // Extreme
+  if (data.daily[0].uvi < 11) {varUVI = `Red`, varCOL = `White`}; // Very High
+  if (data.daily[0].uvi < 8) {varUVI = `Orange`, varCOL = `White`}; // High
+  if (data.daily[0].uvi < 6) {varUVI = `Yellow`, varCOL = `Black`}; // Moderate
+  if (data.daily[0].uvi < 3) {varUVI = `Green`, varCOL = `White`}; // Low
+  console.log(varUVI)
 
   currentWeatherItemsEl.innerHTML =
     `<img src="http://openweathermap.org/img/wn/${weather[0].icon}@2x.png" alt="weather icon" class="w-icon">
@@ -96,7 +101,7 @@ function showWeatherData(data) {
     <div>Sunset</div>
     <div>${window.moment(sunset * 1000).format('HH:mm a')}</div>
     </div>`;
-
+    $(`#day0-UV`).css({ "background-color": varUVI,"color": varCOL, "border-radius": "5px","width": "50px","text-align": "center"});
   displayFiveDay(data);
 
 }
