@@ -18,7 +18,7 @@ let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oc
 
 
 let API_KEY = "928833520683a8d6e55eaf1f2e8c61f4"
-
+//Updates time every 1sec
 setInterval(() => {
   let time = new Date();
   let month = time.getMonth();
@@ -34,7 +34,8 @@ setInterval(() => {
   dateEl.innerHTML = days[day] + ", " + months[month] + " " + date;
 }, 1000);
 
-
+//Searches api with lat+long data from first api fetch
+//2nd api fetch
 function getWeatherData(varLat, varLon, currentCityName, varName) {
   var locQueryUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=` + varLat + `&lon=` + varLon + `&exclude=hourly&units=metric&appid=${API_KEY}`;
   fetch(locQueryUrl)
@@ -55,7 +56,9 @@ function getWeatherData(varLat, varLon, currentCityName, varName) {
 
 
 }
-
+//Function for displaying weather data
+//Changes UVI background color
+//Puts value from api into defined variable
 function showWeatherData(data) {
   let { clouds, humidity, temp, sunrise, sunset, wind_speed, feels_like, weather, dt } = data.current;
   timezone.innerHTML = varName;
@@ -110,6 +113,8 @@ function showWeatherData(data) {
 
 }
 
+//5 day forecast
+//Displays values in correct element id
 function displayFiveDay(data) {  //updates the weather information for the various IDs
   for (var i = 1; i <= 5; i++) {
     let windspeed = Math.round((data.daily[i].wind_speed*3.6));
@@ -124,7 +129,8 @@ function displayFiveDay(data) {  //updates the weather information for the vario
   }
 }
 
-
+//Gets lat+lon data 
+//1st api search
 function searchApi(query) {
   var locQueryUrl = `https://api.openweathermap.org/data/2.5/weather?q=` + query + `&appid=${API_KEY}`;
 
@@ -151,7 +157,7 @@ function searchApi(query) {
     })
 
 }
-
+//Takes search data and sends it to 1st api search
 function handleSearchFormSubmit(event) {
   event.preventDefault();
   var searchInputVal = document.querySelector('#search-input').value;
