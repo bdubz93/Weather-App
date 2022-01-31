@@ -10,7 +10,8 @@ var currentCityName;
 var searchFormEl = document.querySelector('#search-city');
 var resultTextEl = document.querySelector('#currentCityName');
 var cityList = [];
-
+let celc = `&nbsp&#176;C`
+let space = `&nbsp`
 
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -30,7 +31,7 @@ setInterval(() => {
 
   timeEl.innerHTML = hoursIn12HrFormat + ":" + (minutes < 10 ? "0" + minutes : minutes) + " " + `<span id="am-pm">${ampm}</span>`;
 
-  dateEl.innerHTML = days[day] + ", " + date + " " + months[month];
+  dateEl.innerHTML = days[day] + ", " + months[month] + " " + date;
 }, 1000);
 
 
@@ -56,10 +57,12 @@ function getWeatherData(varLat, varLon, currentCityName, varName) {
 }
 
 function showWeatherData(data) {
-  let { clouds, humidity, temp, sunrise, sunset, wind_speed, feels_like, weather } = data.current;
+  let { clouds, humidity, temp, sunrise, sunset, wind_speed, feels_like, weather, dt } = data.current;
   timezone.innerHTML = varName;
   countryEl.innerHTML = data.lat + "N " + data.lon + "E"
   let uvi = data.daily[0].uvi;
+  let dtDate = moment.unix(data.current.dt).format("MM/DD/YYYY")
+  let windspeed = Math.round((data.daily[0].wind_speed*3.6));
   if (data.daily[0].uvi >= 11) {varUVI = `Violet`, varCOL = `White`}; // Extreme
   if (data.daily[0].uvi < 11) {varUVI = `Red`, varCOL = `White`}; // Very High
   if (data.daily[0].uvi < 8) {varUVI = `Orange`, varCOL = `White`}; // High
@@ -68,7 +71,12 @@ function showWeatherData(data) {
   console.log(varUVI)
 
   currentWeatherItemsEl.innerHTML =
-    `<img src="http://openweathermap.org/img/wn/${weather[0].icon}@2x.png" alt="weather icon" class="w-icon">
+    `
+    <div class="weather-item">
+    <div></div>
+    <div>${dtDate}</div>
+    </div>
+    <img src="http://openweathermap.org/img/wn/${weather[0].icon}@2x.png" alt="weather icon" class="w-icon">
     <div class="weather-item">
     <div>Current Temp</div>
     <div>&nbsp&nbsp${temp} &#176;C</div>
@@ -78,16 +86,12 @@ function showWeatherData(data) {
     <div>${feels_like} &#176;C</div>
     </div>
     <div class="weather-item">
-    <div>Clouds</div>
-    <div>${clouds}%</div>
-    </div>
-    <div class="weather-item">
     <div>Humidity</div>
     <div>${humidity}%</div>
     </div>
     <div class="weather-item">
-    <div>Wind Speed</div>
-    <div>${wind_speed}</div>
+    <div>Windspeed</div>
+    <div>&nbsp&nbsp${windspeed +space+"km/h"}</div>
     </div>
     <div class="weather-item">
     <div>UV Index</div>
@@ -95,11 +99,11 @@ function showWeatherData(data) {
     </div>
     <div class="weather-item">
     <div>Sunrise</div>
-    <div>${window.moment(sunrise * 1000).format('HH:mm a')}</div>
+    <div>${window.moment(sunrise * 1000).format('h:mm a')}</div>
     </div>
     <div class="weather-item">
     <div>Sunset</div>
-    <div>${window.moment(sunset * 1000).format('HH:mm a')}</div>
+    <div>${window.moment(sunset * 1000).format('h:mm a')}</div>
     </div>`;
     $(`#day0-UV`).css({ "background-color": varUVI,"color": varCOL, "border-radius": "5px","width": "50px","text-align": "center"});
   displayFiveDay(data);
@@ -108,16 +112,17 @@ function showWeatherData(data) {
 
 function displayFiveDay(data) {  //updates the weather information for the various IDs
   for (var i = 1; i <= 5; i++) {
-    let celc = `&nbsp&#176;C`
-    let space = `&nbsp`
+    let windspeed = Math.round((data.daily[i].wind_speed*3.6));
     console.log(data.daily[i].weather[0].icon)
-    $(`#day` + i + `-tempnight`).html("Night" + space + data.daily[i].temp.night + celc);
-    $(`#day` + i + `-tempday`).html("Day" + space + data.daily[i].temp.day + celc);
+    $(`#day` + i + `-tempnight`).html("Night:" + space + data.daily[i].temp.night + celc);
+    $(`#day` + i + `-tempday`).html("Morning:"+space+data.daily[i].temp.morn + celc);
     $(`#day` + i + `-date`).text(moment.unix(data.daily[i].dt).format("MM/DD/YYYY"));
     $(`#day` + i + `-icon`).attr("src", `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`);
+    $(`#day` + i + `-humidity`).html("Humidity:"+space+data.daily[i].humidity+`%`);
+    $(`#day` + i + `-windspeed`).html("Windspeed:"+space+windspeed+"km/h");
+    $(`#day` + i + `-current`).html("Temp:" + space + data.daily[i].temp.day + celc);
   }
 }
-
 
 
 function searchApi(query) {

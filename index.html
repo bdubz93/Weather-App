@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
+    <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather App</title>
 </head>
@@ -40,9 +41,19 @@
                     </ul>
                 </div>
 
+            
+                </div>
+
             </div>
         </div>
-
+        <div class="container-search">
+            <form id="search-city" class="form-inline">
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input id="search-input" type="search" placeholder="Enter A City's Name">
+                    </div>
+            </form>
+            </div>
 
     </div>
 
@@ -53,46 +64,52 @@
             <div class="weather-forecast-item">
                 <div class="day" id="day1-date">Tue</div>
                 <div><img id="day1-icon" src="" alt="weather icon"></i></div>
-                <div class="temp" id="day1-tempday">&#176; C</div>
+                <div class="temp" id="day1-current"></div>
+                <div class="temp" id="day1-tempday"></div>
                 <div class="temp" id="day1-tempnight"></div>
+                <div class="temp" id="day1-humidity"></div>
+                <div class="temp" id="day1-windspeed"></div>
             </div>
             <div class="weather-forecast-item">
                 <div class="day" id="day2-date">Tue</div>
                 <div><img id="day2-icon" src="" alt="weather icon"></i></div>
-                <div class="temp" id="day2-tempday">&#176; C</div>
+                <div class="temp" id="day2-current"></div>
+                <div class="temp" id="day2-tempday"></div>
                 <div class="temp" id="day2-tempnight"></div>
+                <div class="temp" id="day2-humidity"></div>
+                <div class="temp" id="day2-windspeed"></div>
             </div>
             <div class="weather-forecast-item">
                 <div class="day" id="day3-date">Tue</div>
                 <div><img id="day3-icon" src="" alt="weather icon"></i></div>
-                <div class="temp" id="day3-tempday">&#176; C</div>
+                <div class="temp" id="day3-current"></div>
+                <div class="temp" id="day3-tempday"></div>
                 <div class="temp" id="day3-tempnight"></div>
+                <div class="temp" id="day3-humidity"></div>
+                <div class="temp" id="day3-windspeed"></div>
             </div>
             <div class="weather-forecast-item">
                 <div class="day" id="day4-date">Tue</div>
                 <div><img id="day4-icon" src="" alt="weather icon"></i></div>
-                <div class="temp" id="day4-tempday">&#176; C</div>
+                <div class="temp" id="day4-current"></div>
+                <div class="temp" id="day4-tempday"></div>
                 <div class="temp" id="day4-tempnight"></div>
+                <div class="temp" id="day4-humidity"></div>
+                <div class="temp" id="day4-windspeed"></div>
             </div>
             <div class="weather-forecast-item">
                 <div class="day" id="day5-date">Tue</div>
                 <div><img id="day5-icon" src="" alt="weather icon"></i></div>
-                <div class="temp" id="day5-tempday">&#176; C</div>
+                <div class="temp" id="day5-current"></div>
+                <div class="temp" id="day5-tempday"></div>
                 <div class="temp" id="day5-tempnight"></div>
+                <div class="temp" id="day5-humidity"></div>
+                <div class="temp" id="day5-windspeed"></div>
             </div>
         </div>
     </div>
 
-    <div class="container-search">
-        <form id="search-city" class="form-inline">
-            <div class="input-group">
-                <div class="form-outline">
-                    <input id="search-input" type="search" placeholder="Enter A City's Name Here"><button
-                        id="search-button" type="submit" class="btn"><i class="fas fa-search"></i></button>
-                </div>
-        </form>
 
-    </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
